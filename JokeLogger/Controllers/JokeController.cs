@@ -16,12 +16,12 @@ namespace JokeLogger.Controllers
     public class JokeController : ControllerBase
     {
         //Hosted web API REST Service base url
-        string Baseurl = "https://api.github.com/";
+        string Baseurl = "https://icanhazdadjoke.com/";
 
         [HttpGet]
-        public async Task<ActionResult<List<Joke>>> Get()
+        public async Task<ActionResult<Joke>> Get()
         {
-            List<Joke> EmpInfo = new List<Joke>();
+            Joke EmpInfo = new();
             using (var client = new HttpClient())
             {
                 //Passing service base url
@@ -29,21 +29,21 @@ namespace JokeLogger.Controllers
                 client.DefaultRequestHeaders.Clear();
                 //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(
-        new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-                client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+        new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("User-Agent", "My Library (https://github.com/bjarmstr/JokeLoggerApp)");
 
                 //Sending request to find web api REST service resource GetAllJokes using HttpClient
 
-                HttpResponseMessage Res = await client.GetAsync("orgs/dotnet/repos");
+                HttpResponseMessage Res = await client.GetAsync("");
                 //Checking the response is successful or not which is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
                     //Storing the response details recieved from web api
                     var EmpResponse = Res.Content.ReadAsStringAsync().Result;
                     //Deserializing the response recieved from web api and storing into the Joke list
-                    EmpInfo = JsonConvert.DeserializeObject<List<Joke>>(EmpResponse);
+                    EmpInfo = JsonConvert.DeserializeObject<Joke>(EmpResponse);
                 }
-                //returning the employee list to view
+                //returning the employee to view
                 return EmpInfo;
             }
         }
