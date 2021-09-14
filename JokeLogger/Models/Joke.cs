@@ -7,5 +7,6 @@ namespace JokeLogger.Models
 {
     public class Joke
     {
+        public string name { get; set; }
     }
 }
