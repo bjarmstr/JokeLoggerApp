@@ -55,7 +55,7 @@ namespace JokeLogger.Controllers
                 logJoke.DateRequested = DateTime.UtcNow;
 
                 //put joke into database
-                var newLogJoke = await _logJokeRepository.Create(logJoke);
+               await _logJokeRepository.Create(logJoke);
 
 
                 return newJoke;
@@ -93,6 +93,13 @@ namespace JokeLogger.Controllers
 
                 }
                 Jokes.Add(newJoke);
+                //put joke in correct format for logger
+                LogJoke logJoke = new(); //I am creating a new logJoke everytime with same name
+                logJoke.Joke = newJoke.joke;
+                logJoke.DateRequested = DateTime.UtcNow;
+
+                //put joke into database
+                await _logJokeRepository.Create(logJoke);
             }
             return Jokes;
         }
