@@ -7,7 +7,7 @@ namespace JokeLogger.Models
 {
     public class LogJoke
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Joke { get; set; }
         public DateTime DateRequested { get; set; }
     }

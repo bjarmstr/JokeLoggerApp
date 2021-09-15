@@ -1,4 +1,5 @@
 ﻿using JokeLogger.Models;
+using JokeLogger.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,8 +16,14 @@ namespace JokeLogger.Controllers
     [ApiController]
     public class JokeController : ControllerBase
     {
+        private readonly ILogJokeRepository _logJokeRepository;
         //Hosted web API REST Service base url
         string Baseurl = "https://icanhazdadjoke.com/";
+
+        public JokeController(ILogJokeRepository logJokeRepository)
+        {
+            _logJokeRepository = logJokeRepository;
+        }
 
         [HttpGet]
         public async Task<ActionResult<Joke>> Get()
@@ -75,12 +82,24 @@ namespace JokeLogger.Controllers
                         //Deserializing the response recieved from web api and storing into the Joke list
                         newJoke = JsonConvert.DeserializeObject<Joke>(jokeResponse);
                     }
-                   
+
                 }
                 Jokes.Add(newJoke);
             }
             return Jokes;
         }
+            [HttpGet("log/{id}")]
+            public async Task<ActionResult<LogJoke>> GetLoggedJoke(int id){
+                return await _logJokeRepository.Get(id);
+            }
+
+            [HttpPost]
+            public async Task<ActionResult<LogJoke>>PostLogJokes([FromBody]LogJoke logJoke)
+            {
+                var newLogJoke = await _logJokeRepository.Create(logJoke);
+            return CreatedAtAction(nameof(GetLoggedJoke), new { id = newLogJoke.Id }, newLogJoke);
+            }
+        
 
     }
 }
