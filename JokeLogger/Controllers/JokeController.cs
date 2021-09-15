@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace JokeLogger.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/joke")]
     [ApiController]
     public class JokeController : ControllerBase
     {
@@ -35,8 +35,7 @@ namespace JokeLogger.Controllers
                 client.BaseAddress = new Uri(Baseurl);
                 client.DefaultRequestHeaders.Clear();
                 //Define request data format
-                client.DefaultRequestHeaders.Accept.Add(
-        new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("User-Agent", "My Library (https://github.com/bjarmstr/JokeLoggerApp)");
 
                 //Sending request to find web api REST service resource GetAllJokes using HttpClient
@@ -50,6 +49,15 @@ namespace JokeLogger.Controllers
                     //Deserializing the response recieved from web api and storing into the Joke list
                     newJoke = JsonConvert.DeserializeObject<Joke>(jokeResponse);
                 }
+                //put joke in correct format for logger
+                LogJoke logJoke = new();
+                logJoke.Joke = newJoke.joke;
+                logJoke.DateRequested = DateTime.UtcNow;
+
+                //put joke into database
+                var newLogJoke = await _logJokeRepository.Create(logJoke);
+
+
                 return newJoke;
             }
         }

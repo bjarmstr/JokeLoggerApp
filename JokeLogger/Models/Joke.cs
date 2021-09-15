@@ -9,9 +9,7 @@ namespace JokeLogger.Models
 {
     public class Joke
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+       // public long Id { get; set; }
         public string joke { get; set; }
     }
 }
