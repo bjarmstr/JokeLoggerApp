@@ -108,7 +108,14 @@ namespace JokeLogger.Controllers
                 return await _logJokeRepository.Get(id);
             }
 
-            [HttpPost]
+        [HttpGet("log/count")]
+        public async Task<IEnumerable<LogJoke>> GetLoggedJokes()
+        {
+            return await _logJokeRepository.Get();
+          
+        }
+
+        [HttpPost]
             public async Task<ActionResult<LogJoke>>PostLogJokes([FromBody]LogJoke logJoke)
             {
                 var newLogJoke = await _logJokeRepository.Create(logJoke);
