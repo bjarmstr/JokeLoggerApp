@@ -109,9 +109,9 @@ namespace JokeLogger.Controllers
             }
 
         [HttpGet("log/count")]
-        public async Task<IEnumerable<LogJoke>> GetLoggedJokes()
+        public async Task<IEnumerable<LogJoke>> GetLoggedJokes(int count)
         {
-            return await _logJokeRepository.Get();
+            return await _logJokeRepository.GetCount(count);
           
         }
 

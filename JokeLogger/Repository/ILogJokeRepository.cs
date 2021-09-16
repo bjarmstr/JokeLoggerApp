@@ -12,5 +12,6 @@ namespace JokeLogger.Repository
         Task<IEnumerable<LogJoke>> Get();
         Task<LogJoke> Create(LogJoke logJoke);
         Task<LogJoke> Get(int id);
+        Task<IEnumerable<LogJoke>> GetCount(int count);
     }
 }

@@ -30,5 +30,14 @@ namespace JokeLogger.Repository
         {
             return await _context.LogJokes.FindAsync(id);
         }
+
+        public async Task<IEnumerable<LogJoke>> GetCount(int count)
+        {
+            return await _context.LogJokes.Skip(Math.Max(0, _context.LogJokes.Count() - count)).ToListAsync();
+
+
+
+
+        }
     }
 }
