@@ -28,10 +28,10 @@ namespace JokeLogger.Controllers
 
         public async Task<IActionResult> Get(int count = 1)
         {
+            //I don't understand why we would want
+            //1 joke to be a string instead of just a list of 1
             List<Joke> Jokes = new();
             Joke newJoke = new();
-
-
             using (var client = new HttpClient())
             {
 
@@ -40,8 +40,7 @@ namespace JokeLogger.Controllers
                 client.BaseAddress = new Uri(Baseurl);
                 client.DefaultRequestHeaders.Clear();
                 //Define request data format
-                client.DefaultRequestHeaders.Accept.Add(
-        new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("User-Agent", "My Library (https://github.com/bjarmstr/JokeLoggerApp)");
 
                 for (int i = 0; i < count; i++)
@@ -84,8 +83,12 @@ namespace JokeLogger.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<LogJoke>> PostLogJokes([FromBody] LogJoke logJoke)
+        public async Task<ActionResult<LogJoke>> PostLogJokes([FromBody] Joke Joke)
         {
+            LogJoke logJoke = new();
+            logJoke.Joke = Joke.joke;
+            logJoke.DateRequested = DateTime.UtcNow;
+            //there are no checks to make sure the joke isn't just an empty string
             var newLogJoke = await _logJokeRepository.Create(logJoke);
             return CreatedAtAction(nameof(GetLoggedJoke), new { id = newLogJoke.Id }, newLogJoke);
         }
