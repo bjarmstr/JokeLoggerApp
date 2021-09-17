@@ -33,6 +33,7 @@ namespace JokeLogger.Repository
 
         public async Task<IEnumerable<LogJoke>> GetCount(int count)
         {
+            //would this be considered business logic & belongs somewhere else?
             return await _context.LogJokes.Skip(Math.Max(0, _context.LogJokes.Count() - count)).ToListAsync();
 
 

@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  jokelogger:
+    image: ${DOCKER_REGISTRY-}jokelogger
+    build:
+      context: .
+      dockerfile: JokeLogger/Dockerfile
+
