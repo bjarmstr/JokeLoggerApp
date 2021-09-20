@@ -1,11 +1,12 @@
 ﻿using JokeLogger.Models;
+using JokeLogger.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JokeLogger.Repository
+namespace JokeLogger.Repos.Repository
 {
     public class LogJokeRepository : ILogJokeRepository
     {

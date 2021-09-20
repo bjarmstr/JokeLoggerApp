@@ -5,5 +5,5 @@ services:
     image: ${DOCKER_REGISTRY-}jokelogger
     build:
       context: .
-      dockerfile: JokeLogger/Dockerfile
+      dockerfile: JokeLogger.API/Dockerfile
 

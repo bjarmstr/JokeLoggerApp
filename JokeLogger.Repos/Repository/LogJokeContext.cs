@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JokeLogger.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JokeLogger.Models
+namespace JokeLogger.Repos
+
 {
     public class LogJokeContext: DbContext
     {

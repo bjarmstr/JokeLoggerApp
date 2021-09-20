@@ -1,5 +1,7 @@
-﻿using JokeLogger.Models;
-using JokeLogger.Repository;
+﻿
+using JokeLogger.Models.Entities;
+using JokeLogger.Models.ViewModels;
+using JokeLogger.Repos.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
