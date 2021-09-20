@@ -64,6 +64,10 @@ namespace JokeLogger.Controllers
            if (count == 1)
           {
                 newJoke = await MakeRequest();
+                LogJoke logJoke = new();
+                logJoke.Joke = newJoke.joke;
+                logJoke.DateRequested = DateTime.UtcNow;
+                await _logJokeRepository.Create(logJoke);
                 return Ok(newJoke);
             }
             else
