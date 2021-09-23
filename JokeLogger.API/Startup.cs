@@ -1,20 +1,12 @@
-using JokeLogger.Models;
+using JokeLogger.Repos;
+using JokeLogger.Repos.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using JokeLogger.Repos.Repository;
-using JokeLogger.Repos;
 
 namespace JokeLogger
 {
@@ -30,8 +22,10 @@ namespace JokeLogger
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+                        
             services.AddScoped<ILogJokeRepository, LogJokeRepository>();
-            services.AddDbContext<LogJokeContext>(o => o.UseSqlite("Data source=loggedjokes.db"));
+            var connectionString = Configuration.GetConnectionString("DB_CONNECTION_STRING");
+            services.AddDbContext<LogJokeContext>(options => options.UseNpgsql(connectionString));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

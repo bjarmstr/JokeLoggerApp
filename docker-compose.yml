@@ -6,4 +6,26 @@ services:
     build:
       context: .
       dockerfile: JokeLogger.API/Dockerfile
+    ports:
+        - "80"
+        - "3400:443"
+    environment:
+      ConnectionStrings__DB_CONNECTION_STRING: "Server=postgres_image;Database=psqlJokedb;User Id=me;Password=me"
+
+  postgres_image:
+    image: postgres:latest
+    ports:
+     - "5432:5432"
+    restart: always
+    volumes:
+     - "db_postgress_joke:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: "me"
+      POSTGRES_PASSWORD: "me"
+      POSTGRES_DB: "blogdb"
+
+
+volumes:
+  db_postgress_joke:
+
 

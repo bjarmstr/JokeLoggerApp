@@ -1,5 +1,4 @@
-﻿using JokeLogger.Models;
-using JokeLogger.Models.Entities;
+﻿using JokeLogger.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

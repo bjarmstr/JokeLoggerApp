@@ -1,6 +1,4 @@
-﻿using JokeLogger.Models;
-using JokeLogger.Models.Entities;
-using System;
+﻿using JokeLogger.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
